@@ -1,17 +1,19 @@
 import React from "react";
 import { getAuth0Client } from "../../app/lib/auth0Sdk";
 
-type UserListContainerProps = {};
+type OrganizationListContainerProps = {};
 
-export default async function UserListContainer(props: UserListContainerProps) {
+export default async function OrganizationListContainer(
+  props: OrganizationListContainerProps
+) {
   const auth0 = getAuth0Client();
 
-  const users = await auth0.getUsers({ sort: "name:1" });
+  const organizations = await auth0.organizations.getAll();
 
   return (
     <div className="py-2">
       <div className="px-4 mx-auto max-w-7xl sm:px-6 md:px-8">
-        <h1 className="text-xl text-neutral-600">Users</h1>
+        <h1 className="text-xl text-neutral-600">Organizations</h1>
       </div>
       <section className="text-gray-600">
         <div className=" px-5 py-10 mx-auto">
@@ -32,19 +34,13 @@ export default async function UserListContainer(props: UserListContainerProps) {
                           scope="col"
                           className="px-3 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
                         >
-                          Email
+                          ID
                         </th>
                         <th
                           scope="col"
                           className="px-3 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
                         >
-                          Login Count
-                        </th>
-                        <th
-                          scope="col"
-                          className="px-3 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
-                        >
-                          Last Login
+                          Display Name
                         </th>
                         <th scope="col" className="relative px-6 py-3">
                           <span className="sr-only">Edit</span>
@@ -52,24 +48,21 @@ export default async function UserListContainer(props: UserListContainerProps) {
                       </tr>
                     </thead>
                     <tbody>
-                      {users.map((user, index) => (
+                      {organizations.map((organization, index) => (
                         <tr
-                          key={user.user_id}
+                          key={organization.id}
                           className={`${
                             index % 2 === 0 ? "bg-white" : "bg-gray-50"
                           }`}
                         >
                           <td className="px-3 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
-                            {user.name}
+                            {organization.name}
                           </td>
                           <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
-                            {user.email}
+                            {organization.id}
                           </td>
                           <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
-                            {user.logins_count}
-                          </td>
-                          <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
-                            {user.last_login}
+                            {organization.display_name}
                           </td>
                           <td className="px-3 py-4 text-sm font-medium text-right whitespace-nowrap">
                             <a

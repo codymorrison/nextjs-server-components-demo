@@ -1,17 +1,17 @@
 import React from "react";
 import { getAuth0Client } from "../../app/lib/auth0Sdk";
 
-type UserListContainerProps = {};
+type RoleListContainerProps = {};
 
-export default async function UserListContainer(props: UserListContainerProps) {
+export default async function RoleListContainer(props: RoleListContainerProps) {
   const auth0 = getAuth0Client();
 
-  const users = await auth0.getUsers({ sort: "name:1" });
+  const roles = await auth0.getRoles();
 
   return (
     <div className="py-2">
       <div className="px-4 mx-auto max-w-7xl sm:px-6 md:px-8">
-        <h1 className="text-xl text-neutral-600">Users</h1>
+        <h1 className="text-xl text-neutral-600">Roles</h1>
       </div>
       <section className="text-gray-600">
         <div className=" px-5 py-10 mx-auto">
@@ -32,45 +32,29 @@ export default async function UserListContainer(props: UserListContainerProps) {
                           scope="col"
                           className="px-3 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
                         >
-                          Email
+                          Description
                         </th>
-                        <th
-                          scope="col"
-                          className="px-3 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
-                        >
-                          Login Count
-                        </th>
-                        <th
-                          scope="col"
-                          className="px-3 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
-                        >
-                          Last Login
-                        </th>
+
                         <th scope="col" className="relative px-6 py-3">
                           <span className="sr-only">Edit</span>
                         </th>
                       </tr>
                     </thead>
                     <tbody>
-                      {users.map((user, index) => (
+                      {roles.map((role, index) => (
                         <tr
-                          key={user.user_id}
+                          key={role.id}
                           className={`${
                             index % 2 === 0 ? "bg-white" : "bg-gray-50"
                           }`}
                         >
                           <td className="px-3 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
-                            {user.name}
+                            {role.name}
                           </td>
-                          <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
-                            {user.email}
+                          <td className="px-3 py-4 text-sm text-gray-500 ">
+                            {role.description}
                           </td>
-                          <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
-                            {user.logins_count}
-                          </td>
-                          <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
-                            {user.last_login}
-                          </td>
+
                           <td className="px-3 py-4 text-sm font-medium text-right whitespace-nowrap">
                             <a
                               href="#"
