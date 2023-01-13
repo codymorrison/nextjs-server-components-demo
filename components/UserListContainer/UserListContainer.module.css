@@ -1,0 +1,7 @@
+.listRow {
+	display: flex;
+}
+
+.listRow div {
+	padding: 5px;
+}
