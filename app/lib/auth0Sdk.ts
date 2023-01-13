@@ -16,7 +16,7 @@ export const getAuth0Client = () => {
       clientId: process.env["AUTH0_CLIENT_ID"],
       clientSecret: process.env["AUTH0_CLIENT_SECRET"],
       scope:
-        "read:users update:users read:roles read:role_members read:organization_members read:organization_member_roles",
+        "read:users update:users read:roles read:role_members read:organization_members read:organization_member_roles read:stats read:insights",
     });
   }
 
